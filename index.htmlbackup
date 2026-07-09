@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name — Marketing Professional</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:    #111010;
+      --paper:  #F5F0E8;
+      --cream:  #EDE7D9;
+      --accent: #D4522A;
+      --gold:   #C9A84C;
+      --muted:  #7A7169;
+      --serif:  'Playfair Display', Georgia, serif;
+      --sans:   'DM Sans', sans-serif;
+      --mono:   'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.6;
+      cursor: none;
+      overflow-x: hidden;
+    }
+
+    /* ── CURSOR ── */
+    .cursor {
+      width: 10px; height: 10px;
+      background: var(--accent); border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background 0.2s;
+      mix-blend-mode: multiply;
+    }
+    .cursor.hover { width: 40px; height: 40px; background: var(--gold); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 3rem;
+      background: var(--paper);
+      border-bottom: 1px solid var(--cream);
+    }
+    .nav-logo { font-family: var(--serif); font-size: 1.1rem; font-style: italic; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      font-size: 0.78rem; letter-spacing: 0.12em;
+      text-transform: uppercase; font-weight: 500; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      padding-top: 80px; overflow: hidden;
+    }
+    .hero-left {
+      padding: 5rem 3rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .hero-eyebrow {
+      font-family: var(--mono); font-size: 0.72rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1.5rem;
+    }
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(3.5rem, 6vw, 6rem);
+      line-height: 1.0; font-weight: 900; margin-bottom: 0.3rem;
+    }
+    .hero-name em { font-style: italic; color: var(--accent); }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(1.1rem, 2vw, 1.5rem);
+      font-weight: 400; font-style: italic;
+      color: var(--muted); margin-bottom: 2rem;
+    }
+    .hero-tagline {
+      font-size: 1.05rem; line-height: 1.75;
+      max-width: 420px; margin-bottom: 3rem; color: #333;
+    }
+    .hero-cta { display: inline-flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      padding: 0.85rem 2rem; font-family: var(--sans);
+      font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; transition: all 0.25s;
+    }
+    .btn-primary { background: var(--ink); color: var(--paper); border: 2px solid var(--ink); }
+    .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
+    .btn-outline { background: transparent; color: var(--ink); border: 2px solid var(--ink); }
+    .btn-outline:hover { background: var(--ink); color: var(--paper); }
+
+    /* ── VINYL ── */
+    .hero-right {
+      background: var(--cream);
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .vinyl-scene {
+      position: relative;
+      width: 360px; height: 360px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .vinyl-record {
+      width: 360px; height: 360px; border-radius: 50%;
+      background:
+        repeating-radial-gradient(
+          circle at 50% 50%,
+          #181614 0px, #181614 2px,
+          #252220 3px, #252220 6px,
+          #1c1a18 7px, #1c1a18 9px
+        );
+      position: absolute;
+      box-shadow:
+        0 0 0 3px #0e0d0c,
+        0 24px 70px rgba(0,0,0,0.4),
+        inset 0 0 40px rgba(0,0,0,0.5);
+      animation: vinyl-spin 7s linear infinite;
+    }
+    /* Groove sheen */
+    .vinyl-record::before {
+      content: '';
+      position: absolute; inset: 0; border-radius: 50%;
+      background: conic-gradient(
+        transparent 0deg,
+        rgba(255,255,255,0.04) 55deg,
+        transparent 110deg,
+        rgba(255,255,255,0.06) 195deg,
+        transparent 270deg,
+        rgba(255,255,255,0.03) 325deg,
+        transparent 360deg
+      );
+    }
+    /* Label */
+    .vinyl-label {
+      width: 126px; height: 126px; border-radius: 50%;
+      background: var(--paper);
+      position: absolute; z-index: 2;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 2px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+      border: 2px solid var(--cream);
+      overflow: hidden;
+    }
+    .vinyl-label::before {
+      content: '';
+      position: absolute; inset: 0; border-radius: 50%;
+      background: radial-gradient(circle at 38% 33%, rgba(255,255,255,0.55) 0%, transparent 55%);
+    }
+    .vinyl-label-eyebrow {
+      font-family: var(--mono); font-size: 0.42rem;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--accent); z-index: 1;
+    }
+    .vinyl-label-name {
+      font-family: var(--serif); font-size: 0.68rem;
+      font-weight: 900; text-align: center; line-height: 1.15;
+      color: var(--ink); z-index: 1;
+    }
+    .vinyl-label-line {
+      width: 46px; height: 1px; background: var(--accent);
+      z-index: 1; margin: 2px 0;
+    }
+    .vinyl-label-stat {
+      font-family: var(--serif); font-size: 1.3rem;
+      font-weight: 900; color: var(--accent); z-index: 1; line-height: 1;
+    }
+    .vinyl-label-stat-sub {
+      font-family: var(--mono); font-size: 0.4rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); z-index: 1;
+    }
+    .vinyl-side {
+      font-family: var(--mono); font-size: 0.38rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); z-index: 1; margin-top: 2px;
+    }
+    /* Center spindle hole */
+    .vinyl-hole {
+      width: 13px; height: 13px; border-radius: 50%;
+      background: #d6d0c4;
+      position: absolute; z-index: 3;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
+    }
+    /* Tonearm */
+    .vinyl-arm {
+      position: absolute;
+      top: -8px; right: -28px;
+      width: 140px; height: 140px;
+      transform-origin: 96% 7%;
+      animation: arm-sway 7s ease-in-out infinite alternate;
+      z-index: 5;
+    }
+    @keyframes vinyl-spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    @keyframes arm-sway {
+      from { transform: rotate(-20deg); }
+      to   { transform: rotate(-8deg); }
+    }
+    /* Floating skill labels */
+    .vinyl-tag {
+      position: absolute;
+      font-family: var(--mono); font-size: 0.58rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); white-space: nowrap;
+    }
+    .vt-1 { top: 11%; left: 3%; }
+    .vt-2 { top: 11%; right: 3%; }
+    .vt-3 { bottom: 13%; left: 3%; }
+    .vt-4 { bottom: 13%; right: 3%; }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 6rem 3rem; }
+    .section-label {
+      font-family: var(--mono); font-size: 0.7rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .section-label::after {
+      content: ''; flex: 1; max-width: 60px;
+      height: 1px; background: var(--accent);
+    }
+    .section-heading {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1.15; font-weight: 900; margin-bottom: 1rem;
+    }
+    .section-heading em { color: var(--accent); font-style: italic; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--ink); color: var(--paper); }
+    #about .section-label { color: var(--gold); }
+    #about .section-label::after { background: var(--gold); }
+    #about .section-heading em { color: var(--gold); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start; margin-top: 3rem;
+    }
+    .about-text p {
+      font-size: 1.05rem; line-height: 1.85;
+      color: rgba(245,240,232,0.85); margin-bottom: 1.5rem;
+    }
+    .about-text p strong { color: var(--gold); font-weight: 500; }
+    .about-facts { display: flex; flex-direction: column; gap: 1.5rem; }
+    .fact-item {
+      display: flex; flex-direction: column;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .fact-item:last-child { border-bottom: none; }
+    .fact-label {
+      font-family: var(--mono); font-size: 0.65rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.4rem;
+    }
+    .fact-value { font-size: 1rem; color: var(--paper); }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--paper); }
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .skill-card {
+      background: var(--cream); padding: 2rem;
+      border: 1px solid rgba(0,0,0,0.06);
+      position: relative; overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .skill-card::before {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 3px; height: 0; background: var(--accent);
+      transition: height 0.3s;
+    }
+    .skill-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+    .skill-card:hover::before { height: 100%; }
+    .skill-icon { font-size: 1.6rem; margin-bottom: 1rem; }
+    .skill-name { font-family: var(--serif); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+    .tag {
+      font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.25rem 0.6rem; background: var(--paper);
+      border: 1px solid rgba(0,0,0,0.12); color: var(--muted); font-family: var(--mono);
+    }
+
+    /* ── WORK ── */
+    #work { background: var(--cream); }
+    .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+    .work-card {
+      background: var(--paper); padding: 2.5rem;
+      border: 1px solid rgba(0,0,0,0.07);
+      position: relative;
+      transition: transform 0.25s, box-shadow 0.25s;
+      text-decoration: none; color: inherit; display: block;
+    }
+    .work-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+    .work-card-type {
+      font-family: var(--mono); font-size: 0.65rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+    }
+    .work-card-title {
+      font-family: var(--serif); font-size: 1.5rem;
+      font-weight: 700; line-height: 1.25; margin-bottom: 0.75rem;
+    }
+    .work-card-desc { font-size: 0.92rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; }
+    .work-metrics { display: flex; gap: 1.5rem; flex-wrap: wrap; padding-top: 1.5rem; border-top: 1px solid var(--cream); }
+    .metric { display: flex; flex-direction: column; }
+    .metric-num { font-family: var(--serif); font-size: 1.6rem; font-weight: 900; color: var(--accent); line-height: 1; }
+    .metric-label { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-family: var(--mono); }
+    .work-card-arrow {
+      position: absolute; top: 2.5rem; right: 2.5rem;
+      font-size: 1.2rem; color: var(--cream);
+      transition: color 0.2s, transform 0.2s;
+    }
+    .work-card:hover .work-card-arrow { color: var(--accent); transform: translate(4px, -4px); }
+
+    /* ── MEDIA GALLERY ── */
+    #media { background: var(--ink); }
+    #media .section-label { color: var(--gold); }
+    #media .section-label::after { background: var(--gold); }
+    #media .section-heading { color: var(--paper); }
+    #media .section-heading em { color: var(--gold); }
+
+    .media-projects { display: flex; flex-direction: column; gap: 5rem; margin-top: 3rem; }
+
+    .media-project-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 1.8rem; padding-bottom: 1.2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .media-project-role {
+      font-family: var(--mono); font-size: 0.6rem;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.5rem;
+      border: 1px solid rgba(201,168,76,0.25);
+      display: inline-block; padding: 0.2rem 0.6rem;
+    }
+    .media-project-name {
+      font-family: var(--serif); font-size: 2.2rem;
+      font-weight: 700; color: var(--paper); line-height: 1.1;
+    }
+    .media-project-name span { color: var(--gold); font-style: italic; }
+    .media-project-desc {
+      font-size: 0.88rem; color: rgba(245,240,232,0.5);
+      max-width: 340px; text-align: right; line-height: 1.7;
+    }
+
+    /* Grid */
+    .media-grid { display: grid; gap: 0.7rem; }
+    .media-grid-offline   { grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 210px 210px; }
+    .media-grid-lyrically { grid-template-columns: 1fr 1fr 2fr; grid-template-rows: 210px 210px; }
+    .span-col-2 { grid-column: span 2; }
+    .span-row-2 { grid-row: span 2; }
+
+    .media-item {
+      position: relative; overflow: hidden;
+      background: #1a1815; cursor: pointer;
+    }
+    .media-item img, .media-item video {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.5s ease, filter 0.4s ease;
+      filter: brightness(0.85) saturate(0.9);
+    }
+    .media-item:hover img,
+    .media-item:hover video { transform: scale(1.04); filter: brightness(1) saturate(1.1); }
+
+    .media-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.7rem;
+      background: linear-gradient(145deg, #1e1b18 0%, #252220 100%);
+      border: 1px dashed rgba(255,255,255,0.08);
+      transition: border-color 0.3s;
+    }
+    .media-item:hover .media-placeholder { border-color: rgba(201,168,76,0.35); }
+    .media-placeholder-icon { font-size: 1.8rem; opacity: 0.35; }
+    .media-placeholder-text {
+      font-family: var(--mono); font-size: 0.56rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.22); text-align: center; line-height: 1.75;
+    }
+    .media-placeholder-text code { color: rgba(201,168,76,0.65); }
+
+    .media-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 55%);
+      opacity: 0; transition: opacity 0.35s;
+      display: flex; align-items: flex-end; padding: 1rem 1.2rem;
+    }
+    .media-item:hover .media-overlay { opacity: 1; }
+    .media-overlay-label {
+      font-family: var(--mono); font-size: 0.58rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+    }
+    .media-badge-video {
+      position: absolute; top: 0.75rem; left: 0.75rem;
+      background: var(--accent); color: white;
+      font-family: var(--mono); font-size: 0.5rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.2rem 0.55rem; z-index: 2;
+    }
+
+    .media-add-note {
+      margin-top: 1.2rem; padding: 1rem 1.4rem;
+      border: 1px solid rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.02);
+    }
+    .media-add-note span {
+      font-family: var(--mono); font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.22); line-height: 1.8;
+    }
+    .media-add-note code { color: rgba(201,168,76,0.65); }
+
+    /* ── CONTACT / PHYSICS STAGE ── */
+    #contact {
+      background: var(--ink); color: var(--paper);
+      text-align: center; padding-bottom: 0; overflow: hidden;
+    }
+    #contact .section-label { justify-content: center; color: var(--gold); }
+    #contact .section-label::after { display: none; }
+    #contact .section-heading { color: var(--paper); }
+    #contact .section-heading em { color: var(--gold); }
+    .contact-sub {
+      font-size: 1.05rem; color: rgba(245,240,232,0.5);
+      max-width: 450px; margin: 0 auto 2rem; line-height: 1.8;
+    }
+
+    /* Physics canvas stage */
+    #physics-stage {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      overflow: hidden;
+    }
+    #physics-canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* HTML overlay pills — positioned by physics engine each frame */
+    .phys-block {
+      position: absolute;
+      top: 0; left: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+      color: var(--paper);
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.05);
+      border-radius: 999px;           /* full pill */
+      pointer-events: none;
+      user-select: none;
+      transform-origin: center center;
+      transition: background 0.22s, border-color 0.22s;
+    }
+    .phys-block.settled { pointer-events: auto; cursor: pointer; }
+    .phys-block:hover {
+      background: rgba(255,255,255,0.11);
+      border-color: rgba(201,168,76,0.55);
+      z-index: 30;
+    }
+    .phys-block.primary {
+      background: var(--accent);
+      border-color: transparent;
+    }
+    .phys-block.primary:hover { background: #c74b24; }
+    .phys-block.gold {
+      background: transparent;
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .phys-block.gold:hover { background: rgba(201,168,76,0.1); }
+
+    .phys-icon  { font-size: 1.1rem; line-height: 1; }
+    .phys-label {
+      font-size: 0.72rem; letter-spacing: 0.14em;
+      text-transform: uppercase; font-weight: 500;
+      white-space: nowrap; font-family: var(--sans);
+    }
+    .phys-sub {
+      font-size: 0.58rem; color: rgba(255,255,255,0.4);
+      font-family: var(--mono); white-space: nowrap; letter-spacing: 0.06em;
+    }
+    .phys-block.primary .phys-sub { color: rgba(255,255,255,0.7); }
+    .phys-block.gold .phys-sub { color: rgba(201,168,76,0.6); }
+
+    footer {
+      padding: 2rem 3rem;
+      font-size: 0.7rem; letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.18); font-family: var(--mono);
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* ── FADE IN ── */
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-right { height: 360px; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .work-grid { grid-template-columns: 1fr; }
+      .media-grid-offline,
+      .media-grid-lyrically { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .span-col-2 { grid-column: span 2; }
+      .span-row-2 { grid-row: span 1; height: 200px; }
+      .media-project-header { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+      .media-project-desc { text-align: left; max-width: 100%; }
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1rem; }
+      section { padding: 4rem 1.5rem; }
+      .hero-left { padding: 4rem 1.5rem 2rem; }
+      .contact-block { min-width: 130px; padding: 1.5rem 1.6rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Your Name.</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#media">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">✦ Marketing Professional</p>
+    <h1 class="hero-name">Your<br /><em>Name.</em></h1>
+    <p class="hero-title">Social Media · Content · SEO · Email</p>
+    <p class="hero-tagline">
+      I turn brands into communities and scroll-stops into conversions.
+      Marketing that actually sounds like a human wrote it — because one did.
+    </p>
+    <div class="hero-cta">
+      <a href="#work" class="btn btn-primary">See My Work</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="vinyl-scene">
+      <!-- Spinning record -->
+      <div class="vinyl-record"></div>
+
+      <!-- Center label (does NOT spin — stays fixed via z-index above) -->
+      <div class="vinyl-label">
+        <span class="vinyl-label-eyebrow">Side A</span>
+        <span class="vinyl-label-name">Your Name<br/>Marketing</span>
+        <div class="vinyl-label-line"></div>
+        <span class="vinyl-label-stat">5+</span>
+        <span class="vinyl-label-stat-sub">Years Experience</span>
+        <span class="vinyl-side">Austin, TX</span>
+      </div>
+      <div class="vinyl-hole"></div>
+
+      <!-- Tonearm -->
+      <div class="vinyl-arm">
+        <svg viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="122" cy="12" r="8" fill="#32302e" stroke="#4a4845" stroke-width="1.5"/>
+          <circle cx="122" cy="12" r="3.5" fill="#222"/>
+          <line x1="122" y1="12" x2="52" y2="104" stroke="#3e3c3a" stroke-width="4" stroke-linecap="round"/>
+          <line x1="52" y1="104" x2="38" y2="118" stroke="#3e3c3a" stroke-width="3.5" stroke-linecap="round"/>
+          <rect x="33" y="114" width="10" height="5" rx="1" fill="#2a2825"/>
+          <circle cx="38" cy="122" r="3.5" fill="#D4522A"/>
+          <circle cx="38" cy="122" r="1.4" fill="#ff7050"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Floating skill labels -->
+    <span class="vinyl-tag vt-1">Social Media</span>
+    <span class="vinyl-tag vt-2">Copywriting</span>
+    <span class="vinyl-tag vt-3">SEO Strategy</span>
+    <span class="vinyl-tag vt-4">Email Marketing</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label">Who I Am</p>
+  <h2 class="section-heading">Marketing with a<br /><em>point of view.</em></h2>
+  <div class="about-grid fade-in">
+    <div class="about-text">
+      <p>
+        I didn't fall into marketing — I <strong>ran toward it.</strong> Give me a blank content calendar
+        and a brand voice to figure out, and I'm genuinely happy. My superpower is making marketing
+        feel less like marketing: copy that sounds like a person, social that actually builds
+        community, emails people actually open.
+      </p>
+      <p>
+        From building Offline Austin's visual brand on the ground in ATX, to helping launch
+        Lyrically Correct into every Target store in the country — <strong>I care about work
+        that actually moves people.</strong>
+      </p>
+      <p>
+        Outside of work: probably reading something, down a rabbit hole about something random,
+        or trying to write the perfect hook for a caption.
+      </p>
+    </div>
+    <div class="about-facts">
+      <div class="fact-item">
+        <span class="fact-label">Currently based in</span>
+        <span class="fact-value">📍 Austin, TX</span>
+      </div>
+      <div class="fact-item">
+        <span class="fact-label">Open to</span>
+        <span class="fact-value">Full-time · Freelance · Contract</span>
+      </div>
+      <div class="fact-item">
+        <span class="fact-label">Featured Projects</span>
+        <span class="fact-value">Offline Austin · Lyrically Correct</span>
+      </div>
+      <div class="fact-item">
+        <span class="fact-label">Tools I live in</span>
+        <span class="fact-value">Notion · Canva · HubSpot · Later · SEMrush · Mailchimp</span>
+      </div>
+      <div class="fact-item">
+        <span class="fact-label">Fun fact</span>
+        <span class="fact-value">Add something human here — it sticks.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">What I Do</p>
+  <h2 class="section-heading">Skills that <em>span the funnel.</em></h2>
+  <div class="skills-grid fade-in">
+    <div class="skill-card">
+      <div class="skill-icon">📱</div>
+      <div class="skill-name">Social Media</div>
+      <p style="font-size:0.9rem;color:var(--muted);line-height:1.7;">Strategy, content creation, community management, and growth — across every platform that matters.</p>
+      <div class="skill-tags">
+        <span class="tag">Instagram</span><span class="tag">TikTok</span>
+        <span class="tag">LinkedIn</span><span class="tag">Twitter/X</span>
+        <span class="tag">Scheduling</span><span class="tag">Analytics</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">✍️</div>
+      <div class="skill-name">Content Writing</div>
+      <p style="font-size:0.9rem;color:var(--muted);line-height:1.7;">Blog posts that rank and actually get read. Long-form that earns its word count. Copy that sounds like a human.</p>
+      <div class="skill-tags">
+        <span class="tag">Blog Strategy</span><span class="tag">Ghostwriting</span>
+        <span class="tag">Brand Voice</span><span class="tag">Storytelling</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔍</div>
+      <div class="skill-name">SEO</div>
+      <p style="font-size:0.9rem;color:var(--muted);line-height:1.7;">Keyword research, on-page optimization, and content strategy that earns organic traffic sustainably.</p>
+      <div class="skill-tags">
+        <span class="tag">Keyword Research</span><span class="tag">On-Page SEO</span>
+        <span class="tag">SEMrush</span><span class="tag">Ahrefs</span><span class="tag">GSC</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📧</div>
+      <div class="skill-name">Email Marketing</div>
+      <p style="font-size:0.9rem;color:var(--muted);line-height:1.7;">Welcome sequences, campaigns, and newsletters that people actually look forward to. Open rates included.</p>
+      <div class="skill-tags">
+        <span class="tag">Klaviyo</span><span class="tag">Mailchimp</span>
+        <span class="tag">Automation</span><span class="tag">A/B Testing</span>
+        <span class="tag">Segmentation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <p class="section-label">Selected Work</p>
+  <h2 class="section-heading">The part where <em>I show, not tell.</em></h2>
+  <div class="work-grid fade-in">
+    <a href="#media" class="work-card">
+      <span class="work-card-arrow">↗</span>
+      <p class="work-card-type">Photography · Short-Form Video · Social</p>
+      <h3 class="work-card-title">Offline — Austin Restaurant Club</h3>
+      <p class="work-card-desc">Captured the brand through photo and short-form video — building a visual identity for Austin's most intimate dining experience, one restaurant at a time.</p>
+      <div class="work-metrics">
+        <div class="metric"><span class="metric-num">📍</span><span class="metric-label">Austin, TX</span></div>
+        <div class="metric"><span class="metric-num">✦</span><span class="metric-label">Visual Brand Creator</span></div>
+      </div>
+    </a>
+    <a href="#media" class="work-card">
+      <span class="work-card-arrow">↗</span>
+      <p class="work-card-type">Product Launch · Retail Marketing</p>
+      <h3 class="work-card-title">Lyrically Correct — National Target Launch</h3>
+      <p class="work-card-desc">Helped bring a music trivia game to shelves in every Target store across the US — from pre-launch content strategy to retail presence and social buzz.</p>
+      <div class="work-metrics">
+        <div class="metric"><span class="metric-num">1,900+</span><span class="metric-label">Target Stores</span></div>
+        <div class="metric"><span class="metric-num">✦</span><span class="metric-label">National Launch</span></div>
+      </div>
+    </a>
+    <a href="#" class="work-card">
+      <span class="work-card-arrow">↗</span>
+      <p class="work-card-type">Content & SEO</p>
+      <h3 class="work-card-title">Organic Traffic Overhaul — [Brand Name]</h3>
+      <p class="work-card-desc">Describe your SEO or content project here. What was broken, what you fixed, and what happened after.</p>
+      <div class="work-metrics">
+        <div class="metric"><span class="metric-num">+210%</span><span class="metric-label">Organic Traffic</span></div>
+        <div class="metric"><span class="metric-num">14</span><span class="metric-label">Page 1 Keywords</span></div>
+      </div>
+    </a>
+    <a href="#" class="work-card">
+      <span class="work-card-arrow">↗</span>
+      <p class="work-card-type">Email Marketing</p>
+      <h3 class="work-card-title">Welcome Sequence Redesign — [Brand Name]</h3>
+      <p class="work-card-desc">Rebuilt an email nurture flow from scratch. Segmentation, voice, timing — and results that made the data team happy too.</p>
+      <div class="work-metrics">
+        <div class="metric"><span class="metric-num">48%</span><span class="metric-label">Open Rate</span></div>
+        <div class="metric"><span class="metric-num">+$30K</span><span class="metric-label">Revenue Attributed</span></div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- MEDIA GALLERY -->
+<section id="media">
+  <p class="section-label">Creative Work</p>
+  <h2 class="section-heading">Shot, edited, <em>posted.</em></h2>
+
+  <div class="media-projects fade-in">
+
+    <!-- ── OFFLINE AUSTIN ── -->
+    <div class="media-project">
+      <div class="media-project-header">
+        <div>
+          <div class="media-project-role">Photography & Short-Form Video</div>
+          <div class="media-project-name">Offline <span>Austin</span></div>
+        </div>
+        <div style="text-align:right;">
+          <div class="media-project-role">Restaurant Club · Austin, TX</div>
+          <p class="media-project-desc">An intimate Austin dining club where I built the visual brand — capturing the food, the atmosphere, and the people that make each experience worth posting about.</p>
+        </div>
+      </div>
+
+      <div class="media-grid media-grid-offline">
+        <!-- Big hero photo (tall, left) -->
+        <div class="media-item span-row-2">
+          <!--
+            TO ADD YOUR PHOTO: replace the div.media-placeholder below with:
+            <img src="images/offline-hero.jpg" alt="Offline Austin dinner atmosphere">
+          -->
+          <div class="media-placeholder">
+            <div class="media-placeholder-icon">🍽️</div>
+            <div class="media-placeholder-text">
+              Best atmosphere shot<br/>
+              <code>src="images/offline-hero.jpg"</code>
+            </div>
+          </div>
+          <div class="media-overlay"><span class="media-overlay-label">Dinner atmosphere</span></div>
+        </div>
+
+        <!-- Photo top-right -->
+        <div class="media-item">
+          <div class="media-placeholder">
+            <div class="media-placeholder-icon">📸</div>
+            <div class="media-placeholder-text">
+              Food / detail shot<br/>
+              <code>src="images/offline-food.jpg"</code>
+            </div>
+          </div>
+          <div class="media-overlay"><span class="media-overlay-label">Food detail</span></div>
+        </div>
+
+        <!-- Photo mid-right -->
+        <div class="media-item">
+          <div class="media-placeholder">
+            <div class="media-placeholder-icon">📸</div>
+            <div class="media-placeholder-text">
+              Venue / people<br/>
+              <code>src="images/offline-venue.jpg"</code>
+            </div>
+          </div>
+          <div class="media-overlay"><span class="media-overlay-label">Venue</span></div>
+        </div>
+
+        <!-- Short-form video -->
+        <div class="media-item">
+          <div class="media-badge-video">▶ Reel</div>
+          <!--
+            TO ADD VIDEO: replace div.media-placeholder with:
+            <video src="videos/offline-reel.mp4" autoplay muted loop playsinline></video>
+          -->
+          <div class="media-placeholder">
+            <div class="media-placeholder-icon">🎬</div>
+            <div class="media-placeholder-text">
+              Short-form reel<br/>
+              <code>src="videos/offline-reel.mp4"</code>
+            </div>
+          </div>
+          <div class="media-overlay"><span class="media-overlay-label">Short-form reel</span></div>
+        </div>
+
+        <!-- BTS photo -->
+        <div class="media-item">
+          <div class="media-placeholder">
+            <div class="media-placeholder-icon">📸</div>
+            <div class="media-placeholder-text">
+              Behind the scenes<br/>
+              <code>src="images/offline-bts.jpg"</code>
+            </div>
+          </div>
+          <div class="media-overlay"><span class="media-overlay-label">Behind the scenes</span></div>
+        </div>
+      </div>
+
+      <div class="media-add-note">
+        <span>
+          💡 Drop your files into an <code>images/</code> and <code>videos/</code> folder in the same GitHub repo.
+          Then replace each <code>div.media-placeholder</code> with <code>&lt;img src="images/your-file.jpg"&gt;</code>
+          or <code>&lt;video src="videos/your-reel.mp4" autoplay muted loop playsinline&gt;&lt;/video&gt;</code>.
+        </span>
+      </div>
+    </div>
+
+    <!-- ── LYRICALLY CORRECT ── -->
+    <div class="media-project">
+      <div class="media-project-header">
+        <div>
+          <div class="media-project-role">Product Launch · Retail Marketing</div>
+          <div class="media-project-name">Lyrically <span>Correct</span></div>
+        </div>
+        <div style="text-align:right;">
+          <div class="media-project-role">Music Trivia · National Retail Launch</div>
+          <p class="media-project-desc">Helped launch a music trivia game into every Target store in the US — content strategy, social proof, and the kind of brand energy that gets people to pick it off the shelf.</p>
+        </div>
+      </div>
+
+      <div class="media-grid media-grid-lyrically">
+        <!-- Product shot -->
+        <div class="media-item">
+          <div class="media-placeholder">
+            <div class="media-placeholder-icon">🎮</div>
+            <div class="media-placeholder-text">
+              Product / packaging<br/>
+              <code>src="images/lc-product.jpg"</code>
+            </div>
+          </div>
+          <div class="media-overlay"><span class="media-overlay-label">Product</span></div>
+        </div>
+
+        <!-- Launch reel -->
+        <div class="media-item">
+          <div class="media-badge-video">▶ Reel</div>
+          <div class="media-placeholder">
+            <div class="media-placeholder-icon">🎬</div>
+            <div class="media-placeholder-text">
+              Launch video / reel<br/>
+              <code>src="videos/lc-launch.mp4"</code>
+            </div>
+          </div>
+          <div class="media-overlay"><span class="media-overlay-label">Launch reel</span></div>
+        </div>
+
+        <!-- Big hero — in-store / campaign (tall right) -->
+        <div class="media-item span-row-2">
+          <div class="media-placeholder">
+            <div class="media-placeholder-icon">🏬</div>
+            <div class="media-placeholder-text">
+              In-store at Target<br/>or campaign hero<br/>
+              <code>src="images/lc-target.jpg"</code>
+            </div>
+          </div>
+          <div class="media-overlay"><span class="media-overlay-label">In-store · Target</span></div>
+        </div>
+
+        <!-- Lifestyle shot -->
+        <div class="media-item">
+          <div class="media-placeholder">
+            <div class="media-placeholder-icon">📸</div>
+            <div class="media-placeholder-text">
+              Lifestyle / gameplay<br/>
+              <code>src="images/lc-lifestyle.jpg"</code>
+            </div>
+          </div>
+          <div class="media-overlay"><span class="media-overlay-label">Lifestyle</span></div>
+        </div>
+
+        <!-- Social content -->
+        <div class="media-item">
+          <div class="media-placeholder">
+            <div class="media-placeholder-icon">📱</div>
+            <div class="media-placeholder-text">
+              Social content<br/>
+              <code>src="images/lc-social.jpg"</code>
+            </div>
+          </div>
+          <div class="media-overlay"><span class="media-overlay-label">Social content</span></div>
+        </div>
+      </div>
+
+      <div class="media-add-note">
+        <span>
+          💡 Same setup — add your Lyrically Correct images and videos to <code>images/</code> and <code>videos/</code>,
+          then swap the placeholders with real <code>&lt;img&gt;</code> and <code>&lt;video&gt;</code> tags above.
+        </span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Let's Talk</p>
+  <h2 class="section-heading">Good work starts with<br /><em>a conversation.</em></h2>
+  <p class="contact-sub">
+    Whether you need a full-stack marketing partner or just someone to make your emails
+    not boring — I'd love to hear about it.
+  </p>
+
+  <div id="physics-stage">
+    <canvas id="physics-canvas"></canvas>
+
+    <!-- Pills — moved by physics engine each frame -->
+    <a href="mailto:you@email.com" class="phys-block primary" id="pb-email">
+      <span class="phys-icon">✉️</span>
+      <span class="phys-label">Let's Collab</span>
+      <span class="phys-sub">you@email.com</span>
+    </a>
+    <a href="#work" class="phys-block" id="pb-cs">
+      <span class="phys-icon">✦</span>
+      <span class="phys-label">Case Studies</span>
+      <span class="phys-sub">See the work</span>
+    </a>
+    <a href="resume.pdf" class="phys-block gold" id="pb-cv">
+      <span class="phys-icon">📄</span>
+      <span class="phys-label">Resume</span>
+      <span class="phys-sub">Download PDF</span>
+    </a>
+    <a href="https://linkedin.com/in/yourhandle" target="_blank" class="phys-block" id="pb-li">
+      <span class="phys-icon">💼</span>
+      <span class="phys-label">LinkedIn</span>
+      <span class="phys-sub">@yourhandle</span>
+    </a>
+  </div>
+
+  <footer>
+    <span>© 2025 Your Name</span>
+    <span>Built with intention (and a lot of coffee).</span>
+  </footer>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+<script>
+  /* ── CURSOR ── */
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, button, .skill-card, .work-card, .media-item, .phys-block').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
+
+  /* ── FADE IN ── */
+  const fadeObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => fadeObs.observe(el));
+
+  /* ── MATTER.JS PHYSICS PILLS ── */
+  (function () {
+    const { Engine, Runner, Bodies, Body, World, Events } = Matter;
+
+    const stage  = document.getElementById('physics-stage');
+    const canvas = document.getElementById('physics-canvas');
+
+    /*
+      Pill definitions: [domId, width, height, dropX%, spawnDelay ms, bgColor, borderColor, textColor]
+      Angle is clamped each frame to ±30° so text never flips upside down.
+    */
+    const MAX_TILT = 0.52; /* radians ≈ 30° */
+
+    const PILLS = [
+      ['pb-email', 210, 72, 22,   0,  '#D4522A', '#D4522A',        '#F5F0E8'],  /* terracotta */
+      ['pb-cs',    195, 72, 62, 200,  '#C9A84C', '#C9A84C',        '#111010'],  /* gold       */
+      ['pb-cv',    165, 72, 80, 420,  'transparent', 'rgba(245,240,232,0.5)', '#F5F0E8'],  /* ghost      */
+      ['pb-li',    180, 72, 40, 640,  '#2a2826', 'rgba(201,168,76,0.4)',     '#C9A84C'],  /* dark+gold  */
+    ];
+
+    let W, H, engine, runner, bodies = [], triggered = false;
+
+    function init() {
+      W = stage.offsetWidth;
+      H = stage.offsetHeight;
+      canvas.width  = W;
+      canvas.height = H;
+
+      engine = Engine.create({ gravity: { y: 1.6 } });
+
+      const S = { isStatic: true, friction: 0.7, restitution: 0.1 };
+      World.add(engine.world, [
+        Bodies.rectangle(W / 2,  H + 30, W * 3, 60, S),
+        Bodies.rectangle(-30,    H / 2,  60, H * 3, S),
+        Bodies.rectangle(W + 30, H / 2,  60, H * 3, S),
+      ]);
+
+      PILLS.forEach(([id, pw, ph,,,bg, border, color]) => {
+        const el = document.getElementById(id);
+        el.style.width       = pw + 'px';
+        el.style.height      = ph + 'px';
+        el.style.opacity     = '0';
+        el.style.background  = bg;
+        el.style.borderColor = border;
+        el.style.color       = color;
+        /* Remove any class-based color overrides */
+        el.classList.remove('primary', 'gold');
+        el.style.transition  = 'opacity 0.25s, background 0.22s, border-color 0.22s';
+
+        const body = Bodies.rectangle(W / 2, -ph * 2, pw - 6, ph - 6, {
+          chamfer:     { radius: (ph - 6) / 2 },
+          friction:    0.52,
+          restitution: 0.2,
+          frictionAir: 0.012,
+          density:     0.004,
+        });
+
+        body._el      = el;
+        body._pw      = pw;
+        body._ph      = ph;
+        body._spawned = false;
+        bodies.push(body);
+      });
+
+      Events.on(engine, 'afterUpdate', () => {
+        bodies.forEach(b => {
+          if (!b._spawned) return;
+
+          /* Clamp angle so text never goes upside-down */
+          let a = b.angle % (Math.PI * 2);
+          if (a >  Math.PI) a -= Math.PI * 2;
+          if (a < -Math.PI) a += Math.PI * 2;
+
+          if (Math.abs(a) > MAX_TILT) {
+            const clamped = Math.sign(a) * MAX_TILT;
+            Body.setAngle(b, clamped);
+            Body.setAngularVelocity(b, b.angularVelocity * -0.3); /* dampen spin */
+          }
+
+          const { x, y } = b.position;
+          b._el.style.transform =
+            `translate(${Math.round(x - b._pw / 2)}px, ${Math.round(y - b._ph / 2)}px) rotate(${b.angle}rad)`;
+        });
+      });
+
+      runner = Runner.create();
+      Runner.run(runner, engine);
+
+      setInterval(() => {
+        bodies.forEach(b => {
+          if (!b._spawned || b._el.classList.contains('settled')) return;
+          if (Math.hypot(b.velocity.x, b.velocity.y) < 0.3 &&
+              Math.abs(b.angularVelocity) < 0.01) {
+            b._el.classList.add('settled');
+          }
+        });
+      }, 300);
+    }
+
+    function spawnAll() {
+      PILLS.forEach(([id, pw, ph, xPct, delay], i) => {
+        setTimeout(() => {
+          const b  = bodies[i];
+          const sx = W * (xPct / 100) + (Math.random() - 0.5) * 50;
+          const sy = -ph - Math.random() * 100;
+
+          Body.setPosition(b, { x: sx, y: sy });
+          /* Small initial tilt — stays within clamp range */
+          Body.setAngle(b, (Math.random() - 0.5) * 0.4);
+          Body.setVelocity(b, { x: (Math.random() - 0.5) * 3.5, y: 1 });
+
+          World.add(engine.world, b);
+          b._spawned = true;
+          b._el.style.opacity = '1';
+        }, delay);
+      });
+    }
+
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !triggered) {
+          triggered = true;
+          init();
+          spawnAll();
+        }
+      });
+    }, { threshold: 0.2 });
+
+    obs.observe(stage);
+  })();
+</script>
+
+</body>
+</html>
